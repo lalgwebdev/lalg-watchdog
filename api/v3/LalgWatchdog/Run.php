@@ -52,7 +52,16 @@ function _do_watchdog($job, &$isError, &$message) {
 		// Job not running (Disabled)
 		$isError = true;
 		$message[] = 'ERROR';
-		$message[] = $job . " is not running (Disabled).";	
+		$message[] = $job . " is not running (Disabled).  Attempting a restart.";	
+		
+		$jid = $result['values'][0]['id'];
+		$success = CRM_Core_BAO_Job::setIsActive($jid, true);
+		if ($success) {
+			$message[] = 'Restart reported success.';
+		}
+		else {
+			$message[] = 'Restart Failed.';
+		}
 	}
 }	
 
