@@ -46,22 +46,17 @@ function _do_watchdog_off($job, &$isError, &$message) {
 	}
 	elseif ($result['values'][0]['is_active'] == 0) {
 		// Disabled as expected
-		$message[] = 'Information';
-		$message[] = $job . " disabled OK.";
+		$message[] = $job . " is disabled OK.";
 	}
 	else {
 		// Job running 
-		$isError = true;
-		$message[] = 'ERROR';
-		$message[] = $job . " is Running.  Attempting to disable it.";	
-		
 		$jid = $result['values'][0]['id'];
 		$success = CRM_Core_BAO_Job::setIsActive($jid, false);
 		if ($success) {
-			$message[] = 'Disable reported success.';
+			$message[] = 'WARNING: ' . $job . ' is running. Disabled OK.';
 		}
 		else {
-			$message[] = 'Disable Failed.';
+			$message[] = 'ERROR: ' . $job . ' is running. Disable Failed.';
 		}
 	}
 }	
