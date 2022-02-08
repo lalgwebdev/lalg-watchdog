@@ -41,21 +41,21 @@ function _do_watchdog_on($job, &$isError, &$message) {
 	if ($result['count'] != 1) {
 		// If not found
 		$isError = true;
-		$message[] = "ERROR: Can't find Scheduled Job: " . $job;
+		$message[] = getcwd() . "  ERROR: Can't find Scheduled Job: " . $job;
 	}
 	elseif ($result['values'][0]['is_active'] == 1) {
 		// Running as expected
-		$message[] = $job . " is running OK.";
+		$message[] = getcwd() . '  ' . $job . " is running OK.";
 	}
 	else {
 		// Job Disabled 
 		$jid = $result['values'][0]['id'];
 		$success = CRM_Core_BAO_Job::setIsActive($jid, true);
 		if ($success) {
-			$message[] = 'WARNING: ' . $job . ' is disabled.  Restarted OK.';
+			$message[] = getcwd() . '  WARNING: ' . $job . ' is disabled.  Restarted OK.';
 		}
 		else {
-			$message[] = 'ERROR: ' . $job . ' is disabled.  Restart Failed.';
+			$message[] = getcwd() . '  ERROR: ' . $job . ' is disabled.  Restart Failed.';
 		}
 	}
 }
