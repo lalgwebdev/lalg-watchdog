@@ -18,10 +18,14 @@
   <version>2.0</version>
   <develStage>alpha</develStage>
   <compatibility>
-    <ver>5.0</ver>
+    <ver>5.1</ver>
   </compatibility>
   <comments>This is a new module, under development</comments>
   <civix>
     <namespace>CRM/LalgWatchdog</namespace>
+    <format>23.02.1</format>
   </civix>
+  <classloader>
+    <psr4 prefix="Civi\" path="Civi"/>
+  </classloader>
 </extension>
